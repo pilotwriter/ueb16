@@ -21,7 +21,13 @@ public class NumberCruncherAnonym {
 	public void crunch(String [] operations) throws Exception {
 		
 		for(String operation : operations) {
+			
+			/*sum: Summiert die Elemente des Arrays paarweise von 
+			 * links nach rechts auf und speichert den neuen Wert 
+			 * in dem jeweils rechten Datenfeld. D.h.: 
+			 * a[1] = a[0] + a[1]; a[2] =a[1] + a[2] usw.*/
 			if(operation.equalsIgnoreCase("sum")) {
+				System.out.println("Array before the sum  operation is "+ Arrays.toString(floatarr));
 				Consumer<float[]> consObj = new Consumer<float[]>() {
 
 					@Override
@@ -32,45 +38,37 @@ public class NumberCruncherAnonym {
 					}
 				};
 				consObj.accept(getNumbers());
+				System.out.println("Array after the sum operation is "+ Arrays.toString(floatarr));
+
 					
 				
 			}
 			else if(operation.equalsIgnoreCase("div")) {
+				System.out.println("Array before the div  operation is "+ Arrays.toString(floatarr));
+				
 				Consumer<float[]> consObj = new Consumer<float[]>() {
-
 					@Override
 					public void accept(float[] values) {
-						float [] sorted  = new float[values.length];
-						//copy the array
-						System.arraycopy(values, 0, sorted, 0, values.length);
-						//sort the array
-						Arrays.sort(sorted);
-					
-						int tail = sorted.length -1;
+						Arrays.sort(values);
+						System.out.println("Array after sort"+ Arrays.toString(floatarr));
+
 						
-						for( int head = 0; head < sorted.length/2; head++) {
-							//index of biggest variable
-							int max = Arrays.asList(values).indexOf(24.0);
-							System.out.println(max);
-							//index of smallest variable
-//							int min = Arrays.asList(values).indexOf(sorted[head]);
-//							System.out.println(max);
-//							System.out.println(min);
-		//
-//							values[max] = values[max] / values[min];
-//							tail --;
+						int tail = values.length -1;
+						
+						for( int head = 0; head < values.length/2; head++) {
+							//Greatest value is at the end of the array and 
+							//smallest one at the head
+							values[tail] = values[tail]/ values[head];
+							tail--;
 						}						
 					}
 				};
 				consObj.accept(getNumbers());
-					
-				
-				
-			
+				System.out.println("Array before the div  operation is "+ Arrays.toString(floatarr));
 				
 			}
-			else if(operation.equalsIgnoreCase("substract")) {
-				
+			else if(operation.equalsIgnoreCase("subtract")) {
+				System.out.println("Array before the subtract  operation is "+ Arrays.toString(floatarr));				
 				Consumer<float[]> consObj = new Consumer<float[]>() {
 					@Override
 					public void accept(float[] values) {
@@ -80,10 +78,15 @@ public class NumberCruncherAnonym {
 					}
 				};
 				consObj.accept(getNumbers());
-				
+				System.out.println("Array after the subtract  operation is "+ Arrays.toString(floatarr));
 		
 			}	
+			/*swirl: Führt n zufällige Vertauschungen der Datenfelder durch; n ist durch die Länge des
+				float-Arrays gegeben.
+			 * */
 			else if(operation.equalsIgnoreCase("swirl")) {
+				System.out.println("Array before the swirl  operation is "+ Arrays.toString(floatarr));
+
 				Consumer<float[]> consObj = new Consumer<float[]>() {
 					@Override
 					public void accept(float[] values) {
@@ -102,11 +105,14 @@ public class NumberCruncherAnonym {
 					}
 				};
 				consObj.accept(getNumbers());
-			
-						
-				
+				System.out.println("Array after the swirl  operation is "+ Arrays.toString(floatarr));
+
 			}
+			/*average: Bestimmt den Durchschnitt aller Werte im Array und speichert 
+			 * den Durchschnittswert im Datenfeld mit dem größten Wert.*/
 			else if(operation.equalsIgnoreCase("average")) {
+				System.out.println("Array before the average  operation is "+ Arrays.toString(floatarr));
+
 				Consumer<float[]> consObj = new Consumer<float[]>() {
 					@Override
 					public void accept(float[] values) {
@@ -132,9 +138,8 @@ public class NumberCruncherAnonym {
 					}
 				};
 				consObj.accept(getNumbers());
-
-		
 				
+				System.out.println("Array after the average  operation is "+ Arrays.toString(floatarr));
 				
 			}
 			else {
@@ -145,88 +150,13 @@ public class NumberCruncherAnonym {
 		}
 	}
 	
-
-
-	// sum 2 float element, save result a left one
-	public void sum() {
-		// parameter, parameter, return type
-		BiFunction<Float, Float, Float> sumObj = new BiFunction<Float, Float, Float>() {
-			@Override
-			public Float apply(Float t, Float u) {
-				return t + u;
-			}
-		};
-		for (int i = 0; i < this.floatarr.length - 1; i++) {
-			floatarr[i] = sumObj.apply(floatarr[i], floatarr[i + 1]);
-		}
-	}
-
-	// Führt n zufällige Vertauschungen der Datenfelder durch; n ist durch die Länge
-	// des
-	// float-Arrays gegeben.
-	public void swirl(int n) {
-		Random rand = new Random();
-		
-		for (int i = 0; i < n; i++) {
-			int index1 = rand.nextInt(n);
-			int index2 = rand.nextInt(n);
-			float temp = floatarr[index1];
-			floatarr[index1] = floatarr[index2];
-			floatarr[index2] = temp;
-		}
-	}
-	public void divide() {
-		float [] sorted  = new float[floatarr.length];
-		//copy the array
-		System.arraycopy(floatarr, 0, sorted, 0, floatarr.length);
-		//sort the array
-		Arrays.sort(sorted);
-	
-		int tail = sorted.length -1;
-		
-		for( int head = 0; head < sorted.length/2; head++) {
-			//index of biggest variable
-			int max = Arrays.asList(floatarr).indexOf(sorted[tail]);
-			//index of smallest variable
-			int min = Arrays.asList(floatarr).indexOf(sorted[head]);
-			System.out.println(max);
-			System.out.println(min);
-
-			floatarr[max] = floatarr[max] / floatarr[min];
-//			tail --;
-		}
-//		System.arraycopy(sorted, 0, floatarr, 0, sorted.length);
-//		System.out.println(Arrays.toString(floatarr));
-	}
 	/*
 	 * returns the float numbers
 	 * 
 	 */
-	public float[] getNumbers() {
-		return this.floatarr;
-
-	}
+public float[] getNumbers() {
+	return this.floatarr;
+}
 	
-	public void average() {
-		//Find the index of biggest number
-		int maxIndex =0;
-		float max = Float.NEGATIVE_INFINITY;
-		for(int i=0;i<floatarr.length;i++) {
-			if(floatarr[i] > max) {
-				max = floatarr[i];
-				maxIndex = i;
-			}		
-		}
-		//get the average
-		float total = 0;
-		for(int i=0;i<floatarr.length;i++) {
-			total = total+floatarr[i];
-		}
-		//calculate average
-		float average = total / floatarr.length;
-		//write the average in the place of biggest one
-		floatarr[maxIndex] = average;
-
-	}
 
 }

@@ -12,6 +12,8 @@ public class NumberCruncherTopLevel {
 		class Swirl implements CrunchOperation{
 			@Override
 			public void crunch(float[] values) {
+				System.out.println("Array before the swirl  operation is "+ Arrays.toString(floatarr));
+
 				Random rand = new Random();
 				
 				for (int i = 0; i < values.length; i++) {
@@ -24,12 +26,16 @@ public class NumberCruncherTopLevel {
 					values[index1] = values[index2];
 					values[index2] = temp;
 				}
+				System.out.println("Array after the swirl  operation is "+ Arrays.toString(floatarr));
+
 			}
 		}
 		//Class for average operation
 		class Average implements CrunchOperation{
 			@Override
 			public void crunch(float[] values) {
+				System.out.println("Array before the average  operation is "+ Arrays.toString(floatarr));
+
 				//Find the index of biggest number
 				int maxIndex =0;
 				float max = Float.NEGATIVE_INFINITY;
@@ -48,6 +54,8 @@ public class NumberCruncherTopLevel {
 				float average = total / values.length;
 				//write the average in the place of biggest one
 				values[maxIndex] = average;
+				System.out.println("Array after the average  operation is "+ Arrays.toString(floatarr));
+
 			}
 		}
 		
@@ -56,44 +64,47 @@ public class NumberCruncherTopLevel {
 	class Sum implements CrunchOperation{
 		@Override
 		public void crunch(float[] values) {
+			System.out.println("Array before the sum  operation is "+ Arrays.toString(floatarr));
+
 			for (int i = 0; i < values.length - 1; i++) {
 				values[i] = values[i] + values[i +1];
 			}
+			System.out.println("Array after the sum  operation is "+ Arrays.toString(floatarr));
+
 		}
+
 	}
 	//Class for subtract operation
 		class Subtract implements CrunchOperation{
+			
 			@Override
 			public void crunch(float[] values) {
+				System.out.println("Array before the subtract  operation is "+ Arrays.toString(floatarr));
+
 				for (int i = 0; i < values.length - 1; i++) {
 					values[i] = values[i] - values[i +1];
 				}
+				System.out.println("Array after the subtract  operation is "+ Arrays.toString(floatarr));
+
 			}
 		}
 	//Class for div operation
 		class Div implements CrunchOperation{
 			@Override
 			public void crunch(float[] values) {
-				float [] sorted  = new float[values.length];
-				//copy the array
-				System.arraycopy(values, 0, sorted, 0, values.length);
-				//sort the array
-				Arrays.sort(sorted);
-			
-				int tail = sorted.length -1;
+				System.out.println("Array before the div  operation is "+ Arrays.toString(floatarr));
+
+				Arrays.sort(values);
+				int tail = values.length -1;
 				
-				for( int head = 0; head < sorted.length/2; head++) {
-					//index of biggest variable
-					int max = Arrays.asList(values).indexOf(24.0);
-					System.out.println(max);
-					//index of smallest variable
-//					int min = Arrays.asList(values).indexOf(sorted[head]);
-//					System.out.println(max);
-//					System.out.println(min);
-//
-//					values[max] = values[max] / values[min];
-//					tail --;
+				for( int head = 0; head < values.length/2; head++) {
+					//Greatest value is at the end of the array and 
+					//smallest one at the head
+					values[tail] = values[tail]/ values[head];
+					tail--;
 				}
+				System.out.println("Array before the div  operation is "+ Arrays.toString(floatarr));
+
 			}
 		}
 	
@@ -102,6 +113,7 @@ public class NumberCruncherTopLevel {
 		
 		for(String operation : operations) {
 			if(operation.equalsIgnoreCase("sum")) {
+				
 				Sum sumObj = new Sum();
 				sumObj.crunch(floatarr);
 				
@@ -111,7 +123,7 @@ public class NumberCruncherTopLevel {
 				divObj.crunch(floatarr);
 				
 			}
-			else if(operation.equalsIgnoreCase("substract")) {
+			else if(operation.equalsIgnoreCase("subtract")) {
 				Subtract sbtObj = new Subtract();
 				sbtObj.crunch(floatarr);
 				
@@ -134,12 +146,7 @@ public class NumberCruncherTopLevel {
 			}
 			
 			
-			
-			
 		}
-		Div a = new Div();
-		a.crunch(floatarr);
-		System.out.println(Arrays.toString(floatarr));
 		
 	}
 	
