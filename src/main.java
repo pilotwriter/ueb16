@@ -56,6 +56,7 @@ public class main {
 			
 			// Let user to fill all the number automatically.
 		} else if (select == 2) {
+			
 			System.out.println("How many elements do you want to add to the array?");
 				String amountStr = scan.nextLine();
 				int amount  = Integer.parseInt(amountStr);
@@ -73,6 +74,10 @@ public class main {
 			System.out.println("No Operations with this number found,please start again!");
 		}
 	}
+		/*
+		 * take the string array of the operations
+		 * 
+		 * */
 	
 	public static void operations() throws Exception
 	{
